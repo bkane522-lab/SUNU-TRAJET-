@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#073c2d" />
+  <meta name="description" content="Consultez les trajets, tarifs, horaires et points de départ interurbains au Sénégal." />
+  <title>Sunu Trajet — Transport interurbain au Sénégal</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-btn" id="menuBtn" aria-label="Ouvrir le menu">☰</button>
+      <a class="brand" href="#home" aria-label="Accueil Sunu Trajet">
+        <span class="brand-mark">S</span>
+        <span><strong>Sunu Trajet</strong><small>Voyager simplement</small></span>
+      </a>
+      <button class="icon-btn" id="installBtn" aria-label="Installer l’application" hidden>↓</button>
+    </header>
+
+    <main>
+      <section class="view active" id="homeView" data-view="home">
+        <section class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">Transport interurbain · Sénégal</span>
+            <h1>Où allez-vous aujourd’hui&nbsp;?</h1>
+            <p>Comparez rapidement les trajets, les horaires et les tarifs publiés.</p>
+          </div>
+          <img src="assets/senegal-map.svg" alt="Carte stylisée du Sénégal" class="senegal-map" />
+        </section>
+
+        <section class="search-card" aria-labelledby="searchTitle">
+          <div class="section-heading compact">
+            <div>
+              <span class="eyebrow dark">Rechercher</span>
+              <h2 id="searchTitle">Votre trajet</h2>
+            </div>
+            <button class="swap-btn" id="swapBtn" type="button" aria-label="Inverser le départ et la destination">⇅</button>
+          </div>
+
+          <form id="searchForm">
+            <label class="field">
+              <span>Départ</span>
+              <span class="field-control"><span class="field-icon">●</span><select id="fromSelect" required></select></span>
+            </label>
+            <label class="field">
+              <span>Destination</span>
+              <span class="field-control"><span class="field-icon destination">●</span><select id="toSelect" required></select></span>
+            </label>
+            <div class="field-grid">
+              <label class="field">
+                <span>Date</span>
+                <span class="field-control"><span class="field-icon">▣</span><input id="dateInput" type="date" required /></span>
+              </label>
+              <label class="field">
+                <span>Voyageurs</span>
+                <span class="field-control"><span class="field-icon">◉</span><select id="passengerSelect">
+                  <option value="1">1 personne</option>
+                  <option value="2">2 personnes</option>
+                  <option value="3">3 personnes</option>
+                  <option value="4">4 personnes</option>
+                  <option value="5">5 personnes</option>
+                </select></span>
+              </label>
+            </div>
+            <button class="primary-btn" type="submit">Rechercher un trajet <span>→</span></button>
+          </form>
+        </section>
+
+        <section class="popular-section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow dark">Accès rapide</span>
+              <h2>Trajets populaires</h2>
+            </div>
+          </div>
+          <div class="popular-grid" id="popularGrid"></div>
+        </section>
+
+        <section class="trust-note">
+          <span class="trust-icon">✓</span>
+          <div>
+            <strong>Tarifs sourcés</strong>
+            <p>Source consultée le <span id="sourceDate"></span>. Confirmez avant le départ.</p>
+          </div>
+        </section>
+      </section>
+
+      <section class="view" id="resultsView" data-view="results">
+        <div class="page-header">
+          <button class="back-btn" data-go="home" aria-label="Retour">←</button>
+          <div>
+            <span class="eyebrow">Résultats</span>
+            <h1 id="resultsTitle">Trajets disponibles</h1>
+          </div>
+        </div>
+        <div class="results-summary" id="resultsSummary"></div>
+        <div class="route-list" id="routeList"></div>
+      </section>
+
+      <section class="view" id="favoritesView" data-view="favorites">
+        <div class="page-header simple">
+          <div>
+            <span class="eyebrow">Enregistrés</span>
+            <h1>Mes favoris</h1>
+          </div>
+        </div>
+        <div class="route-list" id="favoritesList"></div>
+      </section>
+
+      <section class="view" id="infoView" data-view="info">
+        <div class="page-header simple">
+          <div>
+            <span class="eyebrow">À propos</span>
+            <h1>Informations utiles</h1>
+          </div>
+        </div>
+        <article class="info-card">
+          <h2>Avant de voyager</h2>
+          <p>Les tarifs, horaires et lieux de départ peuvent être modifiés par le transporteur. Appelez avant de vous rendre au point de départ.</p>
+        </article>
+        <article class="info-card">
+          <h2>Source des données</h2>
+          <p>Les données initiales sont issues du réseau interurbain publié par Dakar Dem Dikk.</p>
+          <a class="text-link" href="https://demdikk.sn/reseau-interurbain/" target="_blank" rel="noopener">Consulter la source officielle ↗</a>
+        </article>
+        <article class="info-card">
+          <h2>Administration</h2>
+          <p>Les trajets peuvent être complétés et mis à jour depuis l’espace administrateur local.</p>
+          <a class="secondary-btn" href="admin/">Ouvrir /admin</a>
+        </article>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navigation principale">
+      <button class="nav-item active" data-nav="home"><span>⌂</span><small>Accueil</small></button>
+      <button class="nav-item" data-nav="results"><span>⇄</span><small>Trajets</small></button>
+      <button class="nav-item" data-nav="favorites"><span>♡</span><small>Favoris</small></button>
+      <button class="nav-item" data-nav="info"><span>ⓘ</span><small>Infos</small></button>
+    </nav>
+  </div>
+
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <div class="brand"><span class="brand-mark">S</span><span><strong>Sunu Trajet</strong><small>Sénégal</small></span></div>
+        <button class="icon-btn dark" id="closeMenuBtn" aria-label="Fermer">×</button>
+      </div>
+      <button data-drawer-nav="home">Accueil</button>
+      <button data-drawer-nav="favorites">Mes favoris</button>
+      <button data-drawer-nav="info">Informations</button>
+      <a href="admin/">Administration</a>
+      <p class="drawer-note">Version de départ · données administrables localement.</p>
+    </div>
+  </aside>
+
+  <dialog id="routeDialog" class="route-dialog">
+    <div id="dialogContent"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
