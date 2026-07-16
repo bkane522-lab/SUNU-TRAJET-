@@ -1,1 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#073c2d" />
+  <title>Administration — Sunu Trajet</title>
+  <link rel="icon" href="../assets/icon-192.png" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <header class="admin-topbar">
+      <a class="brand" href="../">
+        <span class="brand-mark">S</span>
+        <span><strong>Sunu Trajet</strong><small>Administration locale</small></span>
+      </a>
+      <a class="admin-back" href="../">Voir l’application</a>
+    </header>
 
+    <main class="admin-main">
+      <section class="admin-intro">
+        <span class="eyebrow">Gestion des données</span>
+        <h1>Trajets et tarifs</h1>
+        <p>Les modifications sont enregistrées sur cet appareil. L’export JSON permet de conserver ou transférer les données.</p>
+      </section>
+
+      <section class="admin-toolbar">
+        <button class="admin-primary" id="addRouteBtn">＋ Ajouter un trajet</button>
+        <button class="admin-secondary" id="exportBtn">Exporter JSON</button>
+        <label class="admin-secondary file-label">Importer JSON<input id="importInput" type="file" accept="application/json" hidden /></label>
+        <button class="admin-danger" id="resetBtn">Réinitialiser</button>
+      </section>
+
+      <section class="admin-stats" id="adminStats"></section>
+
+      <section class="admin-list-section">
+        <div class="admin-list-head">
+          <div>
+            <span class="eyebrow dark">Données actuelles</span>
+            <h2>Liste des trajets</h2>
+          </div>
+          <input class="admin-search" id="adminSearch" type="search" placeholder="Rechercher une ville…" />
+        </div>
+        <div class="admin-route-list" id="adminRouteList"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="routeFormDialog" class="admin-dialog">
+    <form id="routeForm" method="dialog">
+      <div class="admin-dialog-head">
+        <div>
+          <span class="eyebrow">Édition</span>
+          <h2 id="formTitle">Ajouter un trajet</h2>
+        </div>
+        <button type="button" class="dialog-close" id="closeFormBtn" aria-label="Fermer">×</button>
+      </div>
+      <div class="admin-form-body">
+        <input type="hidden" id="routeId" />
+        <div class="admin-form-grid two">
+          <label>Ville de départ<input id="routeFrom" required /></label>
+          <label>Destination<input id="routeTo" required /></label>
+        </div>
+        <div class="admin-form-grid two">
+          <label>Transporteur<input id="routeOperator" required value="Sénégal Dem Dikk" /></label>
+          <label>Type de véhicule<input id="routeVehicle" value="Autocar" /></label>
+        </div>
+        <div class="admin-form-grid two">
+          <label>Tarif FCFA<input id="routePrice" type="number" min="0" step="100" required /></label>
+          <label>Horaires, séparés par une virgule<input id="routeTimes" placeholder="07:00, 15:00" /></label>
+        </div>
+        <label>Fréquence<input id="routeFrequency" placeholder="Tous les jours" /></label>
+        <label>Point de départ<textarea id="routeOriginStop" rows="2"></textarea></label>
+        <label>Point d’arrivée<textarea id="routeDestinationStop" rows="2"></textarea></label>
+        <div class="admin-form-grid two">
+          <label>Téléphone<input id="routePhone" inputmode="tel" placeholder="+221…" /></label>
+          <label>Note horaire<input id="routeScheduleNote" placeholder="Confirmer avant le départ" /></label>
+        </div>
+        <label class="check-label"><input id="routeVerified" type="checkbox" checked /> Donnée issue d’une source identifiée</label>
+        <div class="admin-form-actions">
+          <button type="button" class="admin-secondary" id="cancelFormBtn">Annuler</button>
+          <button type="submit" class="admin-primary">Enregistrer</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="../data.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
