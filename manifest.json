@@ -1,0 +1,18 @@
+{
+  "name": "MAINTENANT — Dark Crystal",
+  "short_name": "MAINTENANT",
+  "description": "Des signaux simples pour se retrouver dans la vraie vie, dans une interface Dark Crystal.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#040609",
+  "theme_color": "#040609",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
