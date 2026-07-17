@@ -1,127 +1,170 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#040609">
-  <meta name="description" content="MAINTENANT — des signaux simples pour se retrouver dans la vraie vie.">
-  <title>MAINTENANT</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#073c2d" />
+  <meta name="description" content="Consultez les trajets, tarifs, horaires et points de départ interurbains au Sénégal." />
+  <title>Lions Transport — Transport interurbain au Sénégal</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="app-shell">
     <header class="topbar">
-      <button class="brand" id="brandBtn" aria-label="Accueil">MAINTENANT<span>.</span></button>
-      <button class="profile-button" id="profileBtn" aria-label="Ouvrir le profil">BK</button>
+      <button class="icon-btn" id="menuBtn" aria-label="Ouvrir le menu">☰</button>
+      <a class="brand" href="#home" aria-label="Accueil Lions Transport">
+        <img class="brand-logo" src="assets/icon-192.png" alt="Logo Lions Transport" />
+        <span><strong>Lions Transport</strong><small>Voyager simplement</small></span>
+      </a>
+      <button class="icon-btn" id="installBtn" aria-label="Installer l’application" hidden>↓</button>
     </header>
 
     <main>
-      <section class="hero">
-        <button class="location-pill" id="cityBtn">
-          <span class="live-dot"></span>
-          <span>Tours et alentours</span>
-          <span>⌄</span>
-        </button>
-
-        <p class="eyebrow">DES RENCONTRES RÉELLES, SANS SCROLL INFINI</p>
-        <h1>Qu’est-ce qu’on fait <em>maintenant&nbsp;?</em></h1>
-        <p class="hero-copy">Des signaux simples pour se retrouver dans la vraie vie.</p>
-        <button class="primary-cta" id="openCreate"><span>+</span> Lancer un signal</button>
-      </section>
-
-      <section class="controls" aria-label="Filtres">
-        <div class="segmented" role="tablist" aria-label="Moment">
-          <button class="segment active" data-time="now" role="tab">Maintenant</button>
-          <button class="segment" data-time="tonight" role="tab">Ce soir</button>
-          <button class="segment" data-time="tomorrow" role="tab">Demain</button>
-        </div>
-
-        <div class="chips" id="categoryChips">
-          <button class="chip active" data-category="all">Tout</button>
-          <button class="chip" data-category="dance">Danse</button>
-          <button class="chip" data-category="food">Manger</button>
-          <button class="chip" data-category="walk">Bouger</button>
-          <button class="chip" data-category="music">Musique</button>
-          <button class="chip" data-category="other">Autre</button>
-        </div>
-      </section>
-
-      <section class="feed-section">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">SIGNAUX ACTIFS</p>
-            <h2>Près de vous</h2>
+      <section class="view active" id="homeView" data-view="home">
+        <section class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">Transport interurbain · Sénégal</span>
+            <h1>Où allez-vous aujourd’hui&nbsp;?</h1>
+            <p>Comparez rapidement les trajets, les horaires et les tarifs publiés.</p>
           </div>
-          <button class="map-button" id="mapToggle"><span>⌖</span> Carte</button>
-        </div>
-        <div id="signalFeed" class="signal-feed" aria-live="polite"></div>
-        <div id="emptyState" class="empty-state hidden">
-          <div class="signal-rings"><i></i><i></i><i></i></div>
-          <h3>Aucun signal actif</h3>
-          <p>Lancez le premier dans votre zone. Il disparaîtra automatiquement après quelques heures.</p>
-          <button class="secondary-cta" id="emptyCreate">Lancer un signal</button>
-        </div>
+          <img src="assets/senegal-map.svg" alt="Carte stylisée du Sénégal" class="senegal-map" />
+        </section>
+
+        <section class="search-card" aria-labelledby="searchTitle">
+          <div class="section-heading compact">
+            <div>
+              <span class="eyebrow dark">Rechercher</span>
+              <h2 id="searchTitle">Votre trajet</h2>
+            </div>
+            <button class="swap-btn" id="swapBtn" type="button" aria-label="Inverser le départ et la destination">⇅</button>
+          </div>
+
+          <form id="searchForm">
+            <label class="field">
+              <span>Départ</span>
+              <span class="field-control"><span class="field-icon">●</span><select id="fromSelect" required></select></span>
+            </label>
+            <label class="field">
+              <span>Destination</span>
+              <span class="field-control"><span class="field-icon destination">●</span><select id="toSelect" required></select></span>
+            </label>
+            <div class="field-grid">
+              <label class="field">
+                <span>Date</span>
+                <span class="field-control"><span class="field-icon">▣</span><input id="dateInput" type="date" required /></span>
+              </label>
+              <label class="field">
+                <span>Voyageurs</span>
+                <span class="field-control"><span class="field-icon">◉</span><select id="passengerSelect">
+                  <option value="1">1 personne</option>
+                  <option value="2">2 personnes</option>
+                  <option value="3">3 personnes</option>
+                  <option value="4">4 personnes</option>
+                  <option value="5">5 personnes</option>
+                </select></span>
+              </label>
+            </div>
+            <button class="primary-btn" type="submit">Rechercher un trajet <span>→</span></button>
+          </form>
+        </section>
+
+        <section class="popular-section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow dark">Accès rapide</span>
+              <h2>Trajets populaires</h2>
+            </div>
+          </div>
+          <div class="popular-grid" id="popularGrid"></div>
+        </section>
+
+        <section class="trust-note">
+          <span class="trust-icon">✓</span>
+          <div>
+            <strong>Tarifs sourcés</strong>
+            <p>Source consultée le <span id="sourceDate"></span>. Confirmez avant le départ.</p>
+          </div>
+        </section>
       </section>
 
-      <section class="principles">
-        <p class="eyebrow">LA RÈGLE</p>
-        <div class="rule-card">
-          <strong>On ne collectionne pas des abonnés.</strong>
-          <span>On collectionne des moments vécus.</span>
+      <section class="view" id="resultsView" data-view="results">
+        <div class="page-header">
+          <button class="back-btn" data-go="home" aria-label="Retour">←</button>
+          <div>
+            <span class="eyebrow">Résultats</span>
+            <h1 id="resultsTitle">Trajets disponibles</h1>
+          </div>
         </div>
+        <div class="results-summary" id="resultsSummary"></div>
+        <div class="route-list" id="routeList"></div>
+      </section>
+
+      <section class="view" id="favoritesView" data-view="favorites">
+        <div class="page-header simple">
+          <div>
+            <span class="eyebrow">Enregistrés</span>
+            <h1>Mes favoris</h1>
+          </div>
+        </div>
+        <div class="route-list" id="favoritesList"></div>
+      </section>
+
+      <section class="view" id="infoView" data-view="info">
+        <div class="page-header simple">
+          <div>
+            <span class="eyebrow">À propos</span>
+            <h1>Informations utiles</h1>
+          </div>
+        </div>
+        <article class="info-card">
+          <h2>Avant de voyager</h2>
+          <p>Les tarifs, horaires et lieux de départ peuvent être modifiés par le transporteur. Appelez avant de vous rendre au point de départ.</p>
+        </article>
+        <article class="info-card">
+          <h2>Source des données</h2>
+          <p>Les données initiales sont issues du réseau interurbain publié par Dakar Dem Dikk.</p>
+          <a class="text-link" href="https://demdikk.sn/reseau-interurbain/" target="_blank" rel="noopener">Consulter la source officielle ↗</a>
+        </article>
+        <article class="info-card">
+          <h2>Administration</h2>
+          <p>Les trajets peuvent être complétés et mis à jour depuis l’espace administrateur local.</p>
+          <a class="secondary-btn" href="admin/">Ouvrir /admin</a>
+        </article>
       </section>
     </main>
 
     <nav class="bottom-nav" aria-label="Navigation principale">
-      <button class="nav-item active" data-view="home"><span>⌂</span><small>Accueil</small></button>
-      <button class="nav-item" data-view="signals"><span>◎</span><small>Mes signaux</small></button>
-      <button class="nav-create" id="navCreate" aria-label="Créer un signal">+</button>
-      <button class="nav-item" data-view="groups"><span>◫</span><small>Groupes</small></button>
-      <button class="nav-item" data-view="profile"><span>○</span><small>Profil</small></button>
+      <button class="nav-item active" data-nav="home"><span>⌂</span><small>Accueil</small></button>
+      <button class="nav-item" data-nav="results"><span>⇄</span><small>Trajets</small></button>
+      <button class="nav-item" data-nav="favorites"><span>♡</span><small>Favoris</small></button>
+      <button class="nav-item" data-nav="info"><span>ⓘ</span><small>Infos</small></button>
     </nav>
   </div>
 
-  <dialog id="createDialog" class="sheet">
-    <form method="dialog" id="signalForm">
-      <div class="sheet-handle"></div>
-      <div class="sheet-header">
-        <div>
-          <p class="eyebrow">NOUVEAU SIGNAL</p>
-          <h2>Proposez quelque chose.</h2>
-        </div>
-        <button type="button" class="close-button" id="closeCreate" aria-label="Fermer">×</button>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <div class="brand"><img class="brand-logo" src="assets/icon-192.png" alt="Logo Lions Transport" /><span><strong>Lions Transport</strong><small>Sénégal</small></span></div>
+        <button class="icon-btn dark" id="closeMenuBtn" aria-label="Fermer">×</button>
       </div>
+      <button data-drawer-nav="home">Accueil</button>
+      <button data-drawer-nav="favorites">Mes favoris</button>
+      <button data-drawer-nav="info">Informations</button>
+      <a href="admin/">Administration</a>
+      <p class="drawer-note">Version de départ · données administrables localement.</p>
+    </div>
+  </aside>
 
-      <label><span>Qu’avez-vous envie de faire ?</span><input name="title" maxlength="60" required placeholder="Ex. Danser une heure au bord de Loire"></label>
-
-      <div class="form-grid">
-        <label><span>Quand ?</span><select name="time"><option value="now">Maintenant</option><option value="tonight">Ce soir</option><option value="tomorrow">Demain</option></select></label>
-        <label><span>Catégorie</span><select name="category"><option value="dance">Danse</option><option value="food">Manger</option><option value="walk">Bouger</option><option value="music">Musique</option><option value="other">Autre</option></select></label>
-      </div>
-
-      <div class="form-grid">
-        <label><span>Zone publique</span><input id="placeInput" name="place" maxlength="40" required value="Tours centre"></label>
-        <label><span>Places</span><select name="capacity"><option>2</option><option>4</option><option selected>6</option><option>8</option><option>12</option></select></label>
-      </div>
-
-      <label><span>Ambiance</span><textarea name="description" maxlength="140" rows="3" placeholder="Simple, détendu, débutants bienvenus…"></textarea></label>
-
-      <label class="toggle-line">
-        <input type="checkbox" name="beginner">
-        <span class="fake-toggle"></span>
-        <span>Débutants bienvenus</span>
-      </label>
-
-      <div class="privacy-note"><span>⌖</span><p>Le lieu exact ne sera visible qu’aux participants acceptés.</p></div>
-      <button type="submit" class="primary-cta full">Publier pour 3 heures</button>
-    </form>
+  <dialog id="routeDialog" class="route-dialog">
+    <div id="dialogContent"></div>
   </dialog>
 
-  <dialog id="detailDialog" class="sheet detail-sheet"><div id="detailContent"></div></dialog>
-  <dialog id="simpleDialog" class="sheet simple-sheet"><div class="sheet-handle"></div><div id="simpleContent"></div></dialog>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
