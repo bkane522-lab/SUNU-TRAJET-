@@ -1,8 +1,8 @@
 (() => {
   "use strict";
 
-  const STORAGE_ROUTES = "sunuTrajetRoutes";
-  const defaults = window.SUNU_DATA.routes;
+  const STORAGE_ROUTES = "lionsTransportRoutes";
+  const defaults = window.LIONS_DATA.routes;
   let routes = loadRoutes();
   let filter = "";
 
@@ -144,14 +144,14 @@
   function exportRoutes() {
     const payload = {
       exportedAt: new Date().toISOString(),
-      app: "Sunu Trajet",
+      app: "Lions Transport",
       routes
     };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `sunu-trajet-routes-${new Date().toISOString().slice(0, 10)}.json`;
+    link.download = `lions-transport-routes-${new Date().toISOString().slice(0, 10)}.json`;
     link.click();
     URL.revokeObjectURL(url);
     showToast("Export JSON créé.");
