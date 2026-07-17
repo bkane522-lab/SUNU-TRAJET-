@@ -1,4 +1,4 @@
-const CACHE_NAME = "lions-transport-v1-20260715";
+const CACHE_NAME = "lions-transport-logo-20260717";
 const ASSETS = [
   "./",
   "./index.html",
@@ -9,6 +9,8 @@ const ASSETS = [
   "./assets/senegal-map.svg",
   "./assets/icon-192.png",
   "./assets/icon-512.png",
+  "./assets/lions-transport-icon.png",
+  "./assets/logo-lions-transport.png",
   "./admin/",
   "./admin/index.html",
   "./admin/admin.css",

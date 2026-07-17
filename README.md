@@ -36,3 +36,8 @@ Le dossier peut être importé directement dans Vercel, Netlify ou GitHub Pages.
 ## Limite de cette première version
 
 Les mises à jour effectuées depuis `/admin/` sont stockées uniquement sur l’appareil utilisé. Une base de données partagée et une authentification administrateur seront ajoutées lors de la phase suivante.
+
+
+## Logo officiel
+
+Le logo Lions Transport et les nouvelles icônes PWA sont intégrés dans le dossier `assets/`.
