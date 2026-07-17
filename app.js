@@ -1,9 +1,9 @@
 (() => {
   "use strict";
 
-  const STORAGE_ROUTES = "sunuTrajetRoutes";
-  const STORAGE_FAVORITES = "sunuTrajetFavorites";
-  const sourceData = window.SUNU_DATA;
+  const STORAGE_ROUTES = "lionsTransportRoutes";
+  const STORAGE_FAVORITES = "lionsTransportFavorites";
+  const sourceData = window.LIONS_DATA;
 
   const state = {
     routes: loadRoutes(),
@@ -252,7 +252,7 @@
   async function shareRoute(routeId) {
     const route = findRoute(routeId);
     if (!route) return;
-    const text = `${route.from} → ${route.to}\n${formatPrice(route.price)}\n${route.frequency}\nDépart : ${route.originStop}\nSunu Trajet — tarif à confirmer avant le départ.`;
+    const text = `${route.from} → ${route.to}\n${formatPrice(route.price)}\n${route.frequency}\nDépart : ${route.originStop}\nLions Transport — tarif à confirmer avant le départ.`;
     try {
       if (navigator.share) {
         await navigator.share({ title: `${route.from} → ${route.to}`, text });

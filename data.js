@@ -1,6 +1,6 @@
-window.SUNU_DATA = {
+window.LIONS_DATA = {
   meta: {
-    appName: "Sunu Trajet",
+    appName: "Lions Transport",
     currency: "FCFA",
     lastChecked: "2026-07-15",
     sourceName: "Dakar Dem Dikk — Réseau interurbain",
